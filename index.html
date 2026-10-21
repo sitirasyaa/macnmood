@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac 'n Mod - Fix Your Mood with Every Mac Bite!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#C8232B',
+                            redDark: '#A01920',
+                            redLight: '#E5383B',
+                            cream: '#F2D283',
+                            creamLight: '#FFF2C6',
+                            dark: '#1E0607'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Fredoka', 'Comfortaa', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Fredoka', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        /* Lightbox */
+        #lightbox { display: none; }
+        #lightbox.open { display: flex; animation: lbFade .25s ease; }
+        @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+        body.lb-lock { overflow: hidden; }
+    </style>
+</head>
+<body class="bg-amber-50/40 text-gray-800 antialiased selection:bg-brand-red selection:text-white">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-brand-red shadow-md text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Brand Name -->
+                <a href="#" class="flex items-center gap-3 group shrink-0">
+                    <div class="w-12 h-12 rounded-full border-2 border-brand-cream overflow-hidden shadow-md bg-brand-red flex items-center justify-center transform group-hover:scale-105 transition-all">
+                        <img src="logo-mac-n-mood.png" alt="Mac 'n Mod Logo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <span class="font-display font-bold text-2xl text-brand-cream tracking-wide block leading-none">Mac 'n Mod</span>
+                        <span class="text-xs text-amber-200 tracking-wider">FIX YOUR MOOD</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-5 lg:gap-8 font-medium text-amber-100 text-sm lg:text-base">
+                    <a href="#about" class="hover:text-brand-cream transition-colors whitespace-nowrap">Tentang Kami</a>
+                    <a href="#benefits" class="hover:text-brand-cream transition-colors whitespace-nowrap">Keunggulan</a>
+                    <a href="#mood" class="hover:text-brand-cream transition-colors whitespace-nowrap">Pilih Mood</a>
+                    <a href="#menu" class="hover:text-brand-cream transition-colors whitespace-nowrap">Menu Utama</a>
+                    <a href="#testimonials" class="hover:text-brand-cream transition-colors whitespace-nowrap">Testimoni</a>
+                    <a href="#dokumentasi" class="hover:text-brand-cream transition-colors whitespace-nowrap">Dokumentasi</a>
+                    <a href="#faq" class="hover:text-brand-cream transition-colors whitespace-nowrap">FAQ</a>
+                </nav>
+
+                <!-- Action Button & Cart Indicator -->
+                <div class="hidden md:flex items-center gap-4 shrink-0">
+                    <a href="#order" class="bg-brand-cream text-brand-dark hover:bg-yellow-300 font-bold px-5 py-2.5 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping text-brand-red"></i>
+                        <span>Order Now</span>
+                        <span id="cartBadge" class="bg-brand-red text-white text-xs px-2 py-0.5 rounded-full hidden">0</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <button id="menuBtn" class="md:hidden text-white p-2 rounded-lg hover:bg-brand-redDark focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brand-redDark border-t border-red-800/50 px-4 pt-3 pb-6 space-y-3">
+            <a href="#about" class="mobile-link block text-amber-100 hover:text-white py-2">Tentang Kami</a>
+            <a href="#benefits" class="mobile-link block text-amber-100 hover:text-white py-2">Keunggulan</a>
+            <a href="#mood" class="mobile-link block text-amber-100 hover:text-white py-2">Pilih Mood</a>
+            <a href="#menu" class="mobile-link block text-amber-100 hover:text-white py-2">Menu Utama</a>
+            <a href="#testimonials" class="mobile-link block text-amber-100 hover:text-white py-2">Testimoni</a>
+            <a href="#dokumentasi" class="mobile-link block text-amber-100 hover:text-white py-2">Dokumentasi</a>
+            <a href="#faq" class="mobile-link block text-amber-100 hover:text-white py-2">FAQ</a>
+            <a href="#order" class="mobile-link inline-block w-full text-center bg-brand-cream text-brand-dark font-bold py-3 rounded-xl mt-2">
+                Pesan via WhatsApp
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-br from-brand-red via-brand-redDark to-red-950 text-white overflow-hidden py-16 md:py-24">
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#F2D283_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-black/25 border border-brand-cream/30 backdrop-blur-md px-4 py-2 rounded-full text-brand-cream text-sm font-semibold">
+                        <img src="logo-mac-n-mood.png" class="w-5 h-5 rounded-full object-cover" alt="mini logo">
+                        <span>Fix Your Mood with Every Mac Bite!</span>
+                    </div>
+
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                        Ubah Mood Kamu Jadi Lebih Ceria dengan <span class="text-brand-cream underline decoration-yellow-400 decoration-wavy decoration-2">Mac 'n Mod!</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-amber-100 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        Nikmati sensasi kelezatan makaroni carbonara creamy dan bolognese gurih khas Mac 'n Mod. Pas banget buat nemenin segala suasana hati kamu!
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#order" class="w-full sm:w-auto bg-brand-cream text-brand-dark hover:bg-yellow-300 font-bold text-lg px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Pesan Macaroni Sekarang</span>
+                        </a>
+                        <a href="#mood" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold text-lg px-6 py-4 rounded-2xl transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-face-smile"></i>
+                            <span>Cek Mood Matcher</span>
+                        </a>
+                    </div>
+
+                    <!-- Highlights Badge -->
+                    <div class="pt-6 border-t border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <p class="font-display font-bold text-2xl text-brand-cream">100%</p>
+                            <p class="text-xs text-amber-200">Bahan Premium</p>
+                        </div>
+                        <div>
+                            <p class="font-display font-bold text-2xl text-brand-cream">2 Varian</p>
+                            <p class="text-xs text-amber-200">Carbonara & Bolognese</p>
+                        </div>
+                        <div>
+                            <p class="font-display font-bold text-2xl text-brand-cream">Fresh Made</p>
+                            <p class="text-xs text-amber-200">Diproses Higienis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image / Visual Badge -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative group w-full max-w-md">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-brand-cream to-amber-300 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition duration-500"></div>
+                        <div class="relative rounded-3xl overflow-hidden border-4 border-brand-cream/40 bg-brand-redDark shadow-2xl p-6 text-center">
+                            <div class="w-48 h-48 sm:w-56 sm:h-56 mx-auto rounded-full p-2 bg-brand-red shadow-inner border-4 border-brand-cream mb-6 overflow-hidden flex items-center justify-center">
+                                <img src="logo-mac-n-mood.png" alt="Mac 'n Mod Main Logo" class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
+                            </div>
+                            <h3 class="font-display text-2xl font-bold text-brand-cream mb-1">Mac 'n Mod</h3>
+                            <p class="text-amber-100 text-sm mb-4">Fix Your Mood with Every Mac Bite!</p>
+                            <span class="inline-block bg-brand-cream text-brand-dark text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                                Ready to satisfy your cravings
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="flex justify-center">
+                    <div class="relative bg-amber-100 p-8 rounded-3xl border-2 border-amber-200 text-center max-w-sm w-full shadow-lg">
+                        <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-brand-red shadow-md mb-4 bg-white">
+                            <img src="logo-mac-n-mood.png" alt="Mac n Mod Logo" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-display font-bold text-xl text-brand-red">Cerita Mac 'n Mod</h4>
+                        <p class="text-gray-600 text-sm mt-2">Fix Your Mood with Every Mac Bite!</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <span class="text-brand-red font-bold tracking-wider uppercase text-sm">Tentang Kami</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900">Lebih Dari Sekadar Makaroni Biasa</h2>
+                    <p class="text-gray-600 leading-relaxed">
+                        Mac 'n Mod hadir menyajikan inovasi olahan pasta makaroni kekinian yang memadukan kelezatan saus bolognese yang gurih, rasa carbonara yang kaya akan sensasi creamy, serta lapisan krim yang lembut dan lumer di atasnya. Dirancang khusus sebagai mood booster harian, produk ini memberikan inovasi baru agar siapa saja bisa menikmati kelezatan pasta berkualitas premium dengan harga yang tetap terjangkau. Dikemas secara modern dan praktis dalam wadah aluminium foil, Mac 'n Mod menjadi pilihan comfort food yang siap menemani berbagai aktivitas harianmu untuk mengembalikan mood bahagia kapan saja.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <div class="flex items-center gap-2 text-gray-700 font-medium">
+                            <i class="fa-solid fa-circle-check text-brand-red text-lg"></i> Halal & Higienis
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-700 font-medium">
+                            <i class="fa-solid fa-circle-check text-brand-red text-lg"></i> Tanpa Pengawet
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-700 font-medium">
+                            <i class="fa-solid fa-circle-check text-brand-red text-lg"></i> Saus Melimpah
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS SECTION -->
+    <section id="benefits" class="py-20 bg-amber-50/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-red font-bold uppercase tracking-wider text-sm">Kenapa Pilih Mac 'n Mod?</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Keunggulan Spesial Macaroni Kami</h2>
+                <p class="text-gray-600 mt-3">Fix Your Mood with Every Mac Bite!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-md border border-amber-100 hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-brand-red text-2xl mb-6">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-gray-900 mb-3">2 Varian Saus Spesial</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Nikmati dua pilihan rasa unggulan: Carbonara creamy yang lembut dan Bolognese gurih kaya daging.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-md border border-amber-100 hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 text-2xl mb-6">
+                        <i class="fa-solid fa-cheese"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-gray-900 mb-3">Keju & Saus Melimpah</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Dibuat dari racikan keju berkualitas tinggi dan saus pilihan yang meresap sempurna ke setiap makaroni.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-md border border-amber-100 hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-brand-red text-2xl mb-6">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-gray-900 mb-3">Mood Booster Harian</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Perpaduan rasa hangat dan lezat yang dirancang khusus untuk mengembalikan mood bahagiamu kapan saja.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOOD PICKER INTERACTIVE SECTION -->
+    <section id="mood" class="py-20 bg-brand-red text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="bg-black/20 text-brand-cream text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">Fitur Interaktif</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold mt-3 text-white">Gimana Mood Kamu Hari Ini?</h2>
+                <p class="text-amber-100 mt-2">Pilih mood kamu di bawah dan dapatkan rekomendasi sajian Mac 'n Mod terfavorit!</p>
+            </div>
+
+            <!-- Mood Buttons -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
+                <button onclick="selectMood('happy')" class="mood-btn bg-white/10 hover:bg-white/20 border-2 border-brand-cream/30 p-4 rounded-2xl text-center transition-all focus:outline-none flex flex-col items-center gap-2 group">
+                    <span class="text-4xl group-hover:scale-125 transition-transform">🥰</span>
+                    <span class="font-bold text-amber-100">Lagi Happy</span>
+                </button>
+                <button onclick="selectMood('stressed')" class="mood-btn bg-white/10 hover:bg-white/20 border-2 border-brand-cream/30 p-4 rounded-2xl text-center transition-all focus:outline-none flex flex-col items-center gap-2 group">
+                    <span class="text-4xl group-hover:scale-125 transition-transform">🤯</span>
+                    <span class="font-bold text-amber-100">Lagi Stres/Pusing</span>
+                </button>
+                <button onclick="selectMood('sleepy')" class="mood-btn bg-white/10 hover:bg-white/20 border-2 border-brand-cream/30 p-4 rounded-2xl text-center transition-all focus:outline-none flex flex-col items-center gap-2 group">
+                    <span class="text-4xl group-hover:scale-125 transition-transform">😴</span>
+                    <span class="font-bold text-amber-100">Ngantuk/Bosan</span>
+                </button>
+                <button onclick="selectMood('chill')" class="mood-btn bg-white/10 hover:bg-white/20 border-2 border-brand-cream/30 p-4 rounded-2xl text-center transition-all focus:outline-none flex flex-col items-center gap-2 group">
+                    <span class="text-4xl group-hover:scale-125 transition-transform">🍿</span>
+                    <span class="font-bold text-amber-100">Nonton/Santai</span>
+                </button>
+            </div>
+
+            <!-- Mood Recommendation Result Card -->
+            <div id="moodResult" class="max-w-xl mx-auto bg-white text-gray-800 p-6 rounded-3xl shadow-2xl border-4 border-brand-cream hidden animate-fadeIn text-center">
+                <div class="inline-block p-3 bg-red-100 rounded-full text-brand-red text-3xl mb-3" id="moodIcon">🍿</div>
+                <h3 class="font-display font-bold text-2xl text-brand-red" id="moodTitle">Rekomendasi Mood Kamu</h3>
+                <p class="text-gray-600 text-sm mt-2 mb-4" id="moodDesc">Pilih mood di atas untuk melihat makaroni pilihan pas buat kamu.</p>
+                <a id="moodOrderBtn" href="#menu" class="inline-block bg-brand-red text-white hover:bg-brand-redDark font-bold px-6 py-2.5 rounded-full shadow-md transition-all text-sm">
+                    Lihat Menu Ini di Bawah
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FULL INTERACTIVE MENU SECTION -->
+    <section id="menu" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-red font-bold uppercase tracking-wider text-sm">Pilihan Menu Terbaik</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Daftar Menu Mac 'n Mod</h2>
+                <p class="text-gray-600 mt-2">Pilih varian rasa favoritmu dan tentukan jumlah porsi untuk memesan!</p>
+            </div>
+
+            <!-- Menu Grid (2 Varian) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+                <!-- Varian 1: Carbonara -->
+                <div class="bg-amber-50/50 rounded-3xl overflow-hidden border border-amber-200 hover:shadow-2xl transition-all flex flex-col justify-between p-6">
+                    <div>
+                        <div class="relative rounded-2xl overflow-hidden bg-amber-500 h-64 mb-4 shadow-inner group">
+                            <span class="absolute top-3 left-3 bg-white text-amber-800 text-xs font-bold px-3 py-1 rounded-full shadow z-10">FAVORITE</span>
+                            <img src="carbonara.png" alt="Carbonara" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <h3 class="font-display font-bold text-2xl text-gray-900">Carbonara</h3>
+                        <p class="text-gray-600 text-sm mt-2 leading-relaxed">Makaroni lembut berpadu dengan saus krim susu dan keju pilihan yang kaya rasa, gurih, serta dilengkapi taburan bacon renyah.</p>
+                        <p class="font-bold text-brand-red text-2xl mt-4">Rp 12.000 <span class="text-xs font-normal text-gray-500">/ porsi</span></p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-amber-200/60 flex items-center justify-between">
+                        <span class="text-sm text-gray-600 font-semibold">Jumlah Porsi:</span>
+                        <div class="flex items-center gap-3 bg-white border border-gray-300 rounded-full px-4 py-1.5 shadow-sm">
+                            <button onclick="updateQty('carbonara', -1)" class="text-gray-600 hover:text-brand-red font-bold text-lg w-7 h-7 flex items-center justify-center">-</button>
+                            <span id="qty-carbonara" class="font-bold text-gray-800 w-6 text-center text-lg">0</span>
+                            <button onclick="updateQty('carbonara', 1)" class="text-gray-600 hover:text-brand-red font-bold text-lg w-7 h-7 flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Varian 2: Bolognese -->
+                <div class="bg-amber-50/50 rounded-3xl overflow-hidden border border-amber-200 hover:shadow-2xl transition-all flex flex-col justify-between p-6">
+                    <div>
+                        <div class="relative rounded-2xl overflow-hidden bg-brand-red h-64 mb-4 shadow-inner group">
+                            <span class="absolute top-3 left-3 bg-brand-cream text-brand-dark text-xs font-bold px-3 py-1 rounded-full shadow z-10">BEST SELLER</span>
+                            <img src="bolognese.png" alt="Bolognese" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <h3 class="font-display font-bold text-2xl text-gray-900">Bolognese</h3>
+                        <p class="text-gray-600 text-sm mt-2 leading-relaxed">Makaroni lezat berpadu dengan saus tomat daging cincang khas Bolognese yang gurih, kaya rempah, dan bertabur keju lumer melimpah.</p>
+                        <p class="font-bold text-brand-red text-2xl mt-4">Rp 13.000 <span class="text-xs font-normal text-gray-500">/ porsi</span></p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-amber-200/60 flex items-center justify-between">
+                        <span class="text-sm text-gray-600 font-semibold">Jumlah Porsi:</span>
+                        <div class="flex items-center gap-3 bg-white border border-gray-300 rounded-full px-4 py-1.5 shadow-sm">
+                            <button onclick="updateQty('bolognese', -1)" class="text-gray-600 hover:text-brand-red font-bold text-lg w-7 h-7 flex items-center justify-center">-</button>
+                            <span id="qty-bolognese" class="font-bold text-gray-800 w-6 text-center text-lg">0</span>
+                            <button onclick="updateQty('bolognese', 1)" class="text-gray-600 hover:text-brand-red font-bold text-lg w-7 h-7 flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TOPPING SELECTOR & CHECKOUT SECTION -->
+    <section id="order" class="py-20 bg-amber-100/60">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-2xl p-6 sm:p-10 border-2 border-brand-cream">
+                <div class="text-center mb-8">
+                    <img src="logo-mac-n-mood.png" class="w-16 h-16 mx-auto rounded-full border-2 border-brand-red mb-3 object-cover" alt="logo form">
+                    <h2 class="font-display text-3xl font-bold text-gray-900">Form Pemesanan & Kalkulator</h2>
+                    <p class="text-gray-600 text-sm mt-1">Lengkapi detail pemesanan di bawah ini untuk dikirimkan langsung ke WhatsApp kami.</p>
+                </div>
+
+                <!-- Extra Topping Options -->
+                <div class="mb-8 p-6 bg-amber-50 rounded-2xl border border-amber-200">
+                    <h3 class="font-display font-bold text-lg text-gray-900 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-plus-circle text-brand-red"></i> Tambahan Topping Ekstra (+Rp 4.000)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer hover:border-brand-red transition-all">
+                            <input type="checkbox" id="top-cheese" onchange="calculateTotal()" class="w-5 h-5 accent-brand-red">
+                            <span class="text-sm font-medium text-gray-700">Extra Mozzarella Melt</span>
+                        </label>
+                        <label class="flex items-center gap-3 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer hover:border-brand-red transition-all">
+                            <input type="checkbox" id="top-beef" onchange="calculateTotal()" class="w-5 h-5 accent-brand-red">
+                            <span class="text-sm font-medium text-gray-700">Crispy Beef Bacon</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Order Summary Box -->
+                <div class="mb-8 bg-brand-red text-white p-6 rounded-2xl">
+                    <h4 class="font-display font-bold text-lg text-brand-cream border-b border-red-800 pb-2 mb-3">Ringkasan Pesanan Kamu</h4>
+                    <div id="orderItemsList" class="text-sm space-y-1 text-amber-100 min-h-[40px]">
+                        <p class="italic text-amber-200/80">Belum ada menu yang dipilih. Silakan tambahkan dari menu di atas.</p>
+                    </div>
+                    <div class="border-t border-red-800 pt-3 mt-3 flex justify-between items-center font-bold text-lg text-white">
+                        <span>Total Pembayaran:</span>
+                        <span id="totalPriceDisplay" class="text-brand-cream text-2xl font-display">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Form -->
+                <form id="waOrderForm" onsubmit="sendToWhatsApp(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Lengkap *</label>
+                            <input type="text" id="custName" required placeholder="Masukkan nama kamu" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-red">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Nomor WhatsApp *</label>
+                            <input type="tel" id="custPhone" required placeholder="08xxxxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-red">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Alamat Pengiriman / Catatan Mood</label>
+                        <textarea id="custNotes" rows="3" placeholder="Alamat lengkap / Catatan khusus (misal: Extra saus ya kak!)" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-red"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span>Kirim Pesanan Langsung via WhatsApp</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION & FORM MENULIS TESTIMONI -->
+    <section id="testimonials" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-red font-bold uppercase tracking-wider text-sm">Ulasan Pelanggan</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Ulasan & Testimoni</h2>
+                <p class="text-gray-600 mt-2">Bagikan pengalaman seru atau ulasanmu setelah menikmati Mac 'n Mod!</p>
+            </div>
+
+            <!-- Grid Testimoni (Dinamis / Murni dari Ulasan Pengguna) -->
+            <div id="testimonialGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Testimoni kosong secara default, akan terisi otomatis saat ada ulasan dikirim -->
+            </div>
+            
+            <div id="noTestimonialMsg" class="text-center text-gray-400 italic mb-16 hidden">
+                Belum ada ulasan. Jadilah yang pertama menulis testimoni di bawah!
+            </div>
+
+            <!-- FORM UNTUK MENULIS TESTIMONI -->
+            <div class="max-w-2xl mx-auto bg-amber-50/80 p-8 rounded-3xl border-2 border-amber-200 shadow-lg">
+                <div class="text-center mb-6">
+                    <h3 class="font-display font-bold text-2xl text-brand-red">Tulis Testimoni Kamu</h3>
+                    <p class="text-gray-600 text-sm mt-1">Pernah coba Mac 'n Mod? Bagikan ulasan dan pengalamanmu di sini!</p>
+                </div>
+
+                <form id="testimonialForm" onsubmit="submitTestimonial(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Nama / Status Kamu *</label>
+                        <input type="text" id="reviewerName" required placeholder="Contoh: Dimas Aditya, Mahasiswa" class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand-red text-sm">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Rating Bintang *</label>
+                        <select id="reviewerRating" class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand-red text-sm">
+                            <option value="5">★★★★★ (5/5 - Sangat Memuaskan)</option>
+                            <option value="4">★★★★☆ (4/5 - Puas)</option>
+                            <option value="3">★★★☆☆ (3/5 - Cukup)</option>
+                            <option value="2">★★☆☆☆ (2/5 - Kurang)</option>
+                            <option value="1">★☆☆☆☆ (1/5 - Buruk)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Ulasan / Pesan Kamu *</label>
+                        <textarea id="reviewerMessage" rows="3" required placeholder="Ceritakan pengalamanmu menikmati Mac 'n Mod..." class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-brand-red text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-red hover:bg-brand-redDark text-white font-bold py-3.5 rounded-xl shadow-md transition-all text-base flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Kirim Testimoni</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DOKUMENTASI SECTION -->
+    <section id="dokumentasi" class="py-20 bg-brand-red text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="bg-black/20 text-brand-cream text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">Galeri</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold mt-3 text-white">Dokumentasi Mac 'n Mod</h2>
+                <p class="text-amber-100 mt-2">Intip proses, momen seru, dan keseruan bareng pelanggan kami! Klik foto untuk memperbesar.</p>
+            </div>
+
+            <!-- Galeri Foto -->
+            <div id="docGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-16">
+                <figure tabindex="0" role="button" class="doc-item cursor-zoom-in group relative aspect-square rounded-2xl overflow-hidden bg-brand-redDark border-2 border-brand-cream/50 shadow-lg flex items-center justify-center">
+                    <span class="text-5xl">👩‍🍳</span>
+                    <img src="dokumentasi-1.jpg" alt="Proses produksi" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-xs sm:text-sm font-semibold p-3">Proses Produksi</figcaption>
+                </figure>
+
+                <figure tabindex="0" role="button" class="doc-item cursor-zoom-in group relative aspect-square rounded-2xl overflow-hidden bg-brand-redDark border-2 border-brand-cream/50 shadow-lg flex items-center justify-center">
+                    <span class="text-5xl">📦</span>
+                    <img src="dokumentasi-2.jpg" alt="Pengemasan produk" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-xs sm:text-sm font-semibold p-3">Pengemasan Produk</figcaption>
+                </figure>
+
+                <figure tabindex="0" role="button" class="doc-item cursor-zoom-in group relative aspect-square rounded-2xl overflow-hidden bg-brand-redDark border-2 border-brand-cream/50 shadow-lg flex items-center justify-center">
+                    <span class="text-5xl">🎉</span>
+                    <img src="dokumentasi-3.jpg" alt="Bazar dan event" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-xs sm:text-sm font-semibold p-3">Bazar & Event</figcaption>
+                </figure>
+
+                <figure tabindex="0" role="button" class="doc-item cursor-zoom-in group relative aspect-square rounded-2xl overflow-hidden bg-brand-redDark border-2 border-brand-cream/50 shadow-lg flex items-center justify-center">
+                    <span class="text-5xl">🤝</span>
+                    <img src="dokumentasi-4.jpg" alt="Tim Mac 'n Mod" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-xs sm:text-sm font-semibold p-3">Tim Kami</figcaption>
+                </figure>
+
+                <figure tabindex="0" role="button" class="doc-item cursor-zoom-in group relative aspect-square rounded-2xl overflow-hidden bg-brand-redDark border-2 border-brand-cream/50 shadow-lg flex items-center justify-center">
+                    <span class="text-5xl">😋</span>
+                    <img src="dokumentasi-5.jpg" alt="Pelanggan menikmati makaroni" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-xs sm:text-sm font-semibold p-3">Momen Pelanggan</figcaption>
+                </figure>
+
+                <figure tabindex="0" role="button" class="doc-item cursor-zoom-in group relative aspect-square rounded-2xl overflow-hidden bg-brand-redDark border-2 border-brand-cream/50 shadow-lg flex items-center justify-center">
+                    <span class="text-5xl">🚚</span>
+                    <img src="dokumentasi-6.jpg" alt="Pengiriman pesanan" onerror="this.remove()" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-xs sm:text-sm font-semibold p-3">Pengiriman Pesanan</figcaption>
+                </figure>
+            </div>
+
+            <!-- KONTAINER VIDEO DENGAN JUDUL -->
+            <div class="max-w-3xl mx-auto mt-8">
+                <div class="text-center mb-6">
+                    <h3 class="font-display text-2xl sm:text-3xl font-bold text-brand-cream flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-circle-play text-yellow-300"></i> Video Proses Pembuatan
+                    </h3>
+                    <p class="text-amber-100 text-sm mt-1">Fix Your Mood with Every Mac Bite!</p>
+                </div>
+                <div class="rounded-3xl overflow-hidden border-4 border-brand-cream/50 shadow-2xl bg-black">
+                    <video controls preload="metadata" class="w-full">
+                        <source src="video-1.mp4" type="video/mp4">
+                        Browser kamu tidak mendukung pemutaran video.
+                    </video>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/90 items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Pratinjau foto dokumentasi">
+        <button id="lbClose" aria-label="Tutup" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-brand-red text-white text-xl flex items-center justify-center transition-all">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button id="lbPrev" aria-label="Foto sebelumnya" class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-brand-red text-white flex items-center justify-center transition-all">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button id="lbNext" aria-label="Foto berikutnya" class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-brand-red text-white flex items-center justify-center transition-all">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <div class="max-w-4xl w-full text-center">
+            <div id="lbMedia" class="flex items-center justify-center min-h-[50vh]"></div>
+            <p id="lbCaption" class="mt-4 text-brand-cream font-display font-semibold text-lg"></p>
+            <p id="lbCounter" class="text-amber-200 text-xs mt-1"></p>
+        </div>
+    </div>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="py-20 bg-amber-50/50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-brand-red font-bold uppercase tracking-wider text-sm">Pertanyaan Umum</span>
+                <h2 class="font-display text-3xl font-bold text-gray-900 mt-2">Sering Ditanyakan (FAQ)</h2>
+            </div>
+
+            <div class="space-y-4">
+                <details class="bg-white p-5 rounded-2xl border border-gray-200 group">
+                    <summary class="font-bold text-gray-800 cursor-pointer flex justify-between items-center list-none">
+                        <span>Apakah Mac 'n Mod bersertifikat Halal?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-red group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-gray-600 text-sm mt-3">Ya! Semua bahan dan racikan bumbu Mac 'n Mod 100% Halal dan higienis.</p>
+                </details>
+
+                <details class="bg-white p-5 rounded-2xl border border-gray-200 group">
+                    <summary class="font-bold text-gray-800 cursor-pointer flex justify-between items-center list-none">
+                        <span>Berapa pilihan varian rasa yang tersedia?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-red group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-gray-600 text-sm mt-3">Kami menyediakan 2 varian menu utama unggulan yaitu Carbonara dan Bolognese.</p>
+                </details>
+
+                <details class="bg-white p-5 rounded-2xl border border-gray-200 group">
+                    <summary class="font-bold text-gray-800 cursor-pointer flex justify-between items-center list-none">
+                        <span>Bagaimana cara memesannya?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-red group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-gray-600 text-sm mt-3">Cukup pilih menu varian favorit kamu di atas, isi form pemesanan, lalu klik tombol pesan untuk terhubung otomatis ke WhatsApp kami!</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-amber-100 py-12 border-t-4 border-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <img src="logo-mac-n-mood.png" class="w-10 h-10 rounded-full border border-brand-cream object-cover" alt="Mac n Mod Footer Logo">
+                        <span class="font-display font-bold text-2xl text-brand-cream">Mac 'n Mod</span>
+                    </div>
+                    <p class="text-sm text-amber-200/80 leading-relaxed">Fix Your Mood with Every Mac Bite!</p>
+                </div>
+
+                <div>
+                    <h5 class="font-bold text-white mb-3">Navigasi</h5>
+                    <ul class="space-y-2 text-sm text-amber-200">
+                        <li><a href="#about" class="hover:text-brand-cream">Tentang Kami</a></li>
+                        <li><a href="#benefits" class="hover:text-brand-cream">Keunggulan</a></li>
+                        <li><a href="#menu" class="hover:text-brand-cream">Daftar Menu</a></li>
+                        <li><a href="#testimonials" class="hover:text-brand-cream">Testimoni</a></li>
+                        <li><a href="#order" class="hover:text-brand-cream">Pesan Online</a></li>
+                        <li><a href="#dokumentasi" class="hover:text-brand-cream">Dokumentasi</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="font-bold text-white mb-3">Kontak & Layanan</h5>
+                    <ul class="space-y-2 text-sm text-amber-200">
+                        <li><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> +62 812-1376-2232</li>
+                        <li><i class="fa-solid fa-envelope text-amber-400 mr-2"></i> macnmoodplace@gmail.com</li>
+                        <li><i class="fa-solid fa-location-dot text-brand-red mr-2"></i> Indonesia</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="font-bold text-white mb-3">Ikuti Kami</h5>
+                    <div class="flex gap-3 text-lg">
+                        <a href="https://instagram.com/macnmood_" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-red transition-all text-white"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@mac.n_mood" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-red transition-all text-white"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-6 text-center text-xs text-amber-300/60">
+                <p>&copy; 2026 Mac 'n Mod. All rights reserved. Fix Your Mood with Every Mac Bite!</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // Menu Items Data Structure
+        const menuData = {
+            carbonara: { name: "Carbonara", price: 12000, qty: 0 },
+            bolognese: { name: "Bolognese", price: 13000, qty: 0 }
+        };
+
+        const toppings = {
+            cheese: { name: "Extra Mozzarella Melt", price: 4000, id: "top-cheese" },
+            beef: { name: "Crispy Beef Bacon", price: 4000, id: "top-beef" }
+        };
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Update Item Quantities
+        function updateQty(key, delta) {
+            if (menuData[key]) {
+                menuData[key].qty = Math.max(0, menuData[key].qty + delta);
+                document.getElementById(`qty-${key}`).innerText = menuData[key].qty;
+                calculateTotal();
+            }
+        }
+
+        // Calculate Totals & Render Summary
+        function calculateTotal() {
+            let total = 0;
+            let totalCount = 0;
+            const itemsList = document.getElementById('orderItemsList');
+            itemsList.innerHTML = '';
+
+            let hasItems = false;
+
+            for (const key in menuData) {
+                const item = menuData[key];
+                if (item.qty > 0) {
+                    hasItems = true;
+                    const itemTotal = item.qty * item.price;
+                    total += itemTotal;
+                    totalCount += item.qty;
+
+                    const row = document.createElement('div');
+                    row.className = 'flex justify-between items-center py-1';
+                    row.innerHTML = `<span>${item.name} (${item.qty}x)</span> <span class="font-bold">Rp ${itemTotal.toLocaleString('id-ID')}</span>`;
+                    itemsList.appendChild(row);
+                }
+            }
+
+            for (const topKey in toppings) {
+                const top = toppings[topKey];
+                const checkbox = document.getElementById(top.id);
+                if (checkbox && checkbox.checked) {
+                    total += top.price;
+                    const topRow = document.createElement('div');
+                    topRow.className = 'flex justify-between items-center py-1 text-xs text-amber-200 italic';
+                    topRow.innerHTML = `<span>+ ${top.name}</span> <span class="font-bold">Rp ${top.price.toLocaleString('id-ID')}</span>`;
+                    itemsList.appendChild(topRow);
+                }
+            }
+
+            if (!hasItems) {
+                itemsList.innerHTML = '<p class="italic text-amber-200/80">Belum ada menu yang dipilih. Silakan tambahkan dari menu di atas.</p>';
+            }
+
+            document.getElementById('totalPriceDisplay').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+
+            const badge = document.getElementById('cartBadge');
+            if (totalCount > 0) {
+                badge.innerText = totalCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // Mood Picker Functionality
+        function selectMood(type) {
+            const resultBox = document.getElementById('moodResult');
+            const icon = document.getElementById('moodIcon');
+            const title = document.getElementById('moodTitle');
+            const desc = document.getElementById('moodDesc');
+
+            resultBox.classList.remove('hidden');
+
+            if (type === 'happy' || type === 'chill') {
+                icon.innerText = '🧀';
+                title.innerText = 'Rekomendasi Mood: Carbonara';
+                desc.innerText = 'Sensasi kelembutan krim dan keju yang lumer pas banget untuk menemani waktu santai dan bahagiamu!';
+            } else {
+                icon.innerText = '🍅';
+                title.innerText = 'Rekomendasi Mood: Bolognese';
+                desc.innerText = 'Perpaduan saus tomat daging cincang yang gurih kaya rempah ampuh mengembalikan energimu kembali fresh!';
+            }
+
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Send Order to WhatsApp
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const notes = document.getElementById('custNotes').value.trim();
+
+            let itemsSummary = '';
+            let total = 0;
+
+            for (const key in menuData) {
+                const item = menuData[key];
+                if (item.qty > 0) {
+                    const sub = item.qty * item.price;
+                    total += sub;
+                    itemsSummary += `- ${item.name} (${item.qty}x) = Rp ${sub.toLocaleString('id-ID')}\n`;
+                }
+            }
+
+            let toppingSummary = '';
+            for (const topKey in toppings) {
+                const top = toppings[topKey];
+                const checkbox = document.getElementById(top.id);
+                if (checkbox && checkbox.checked) {
+                    total += top.price;
+                    toppingSummary += `- ${top.name} (Rp ${top.price.toLocaleString('id-ID')})\n`;
+                }
+            }
+
+            if (itemsSummary === '') {
+                alert('Silakan pilih minimal 1 porsi menu Mac \'n Mod sebelum memesan.');
+                return;
+            }
+
+            let message = `Halo Admin *Mac 'n Mod*!\nSaya ingin memesan makaroni:\n\n`;
+            message += `*DETAIL PESANAN:*\n${itemsSummary}`;
+
+            if (toppingSummary !== '') {
+                message += `\n*TAMBAHAN TOPPING:*\n${toppingSummary}`;
+            }
+
+            message += `\n*TOTAL BAYAR:* Rp ${total.toLocaleString('id-ID')}\n\n`;
+            message += `*DATA PEMESAN:*\n- Nama: ${name}\n- No. WA: ${phone}\n- Catatan/Alamat: ${notes || '-'}\n\n`;
+            message += `Mohon segera diproses ya kak, terima kasih!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const targetPhone = "6281213762232";
+
+            window.open(`https://wa.me/${targetPhone}?text=${encodedMessage}`, '_blank');
+        }
+
+        // ===== Fitur Testimoni Interaktif & LocalStorage =====
+        document.addEventListener("DOMContentLoaded", () => {
+            loadSavedTestimonials();
+        });
+
+        function submitTestimonial(e) {
+            e.preventDefault();
+            const name = document.getElementById('reviewerName').value.trim();
+            const rating = parseInt(document.getElementById('reviewerRating').value);
+            const message = document.getElementById('reviewerMessage').value.trim();
+
+            const newReview = { name, rating, message };
+
+            // Simpan ke localStorage
+            let savedReviews = JSON.parse(localStorage.getItem('macnmood_reviews')) || [];
+            savedReviews.unshift(newReview);
+            localStorage.setItem('macnmood_reviews', JSON.stringify(savedReviews));
+
+            // Render ulang dan reset form
+            appendTestimonialToDOM(newReview);
+            checkEmptyTestimonials();
+            document.getElementById('testimonialForm').reset();
+            alert('Terima kasih! Testimoni kamu berhasil ditayangkan.');
+        }
+
+        function appendTestimonialToDOM(review) {
+            const grid = document.getElementById('testimonialGrid');
+            const card = document.createElement('div');
+            card.className = "bg-amber-50/60 p-6 rounded-2xl border border-amber-200 space-y-4 shadow-sm flex flex-col justify-between animate-fadeIn";
+            
+            let starsHtml = '';
+            for (let i = 0; i < review.rating; i++) {
+                starsHtml += '<i class="fa-solid fa-star"></i>';
+            }
+
+            card.innerHTML = `
+                <div>
+                    <div class="flex text-amber-400 gap-1 mb-2">${starsHtml}</div>
+                    <p class="text-gray-600 text-sm italic">"${review.message}"</p>
+                </div>
+                <div class="font-bold text-gray-800 text-sm pt-4 border-t border-amber-200/60">- ${review.name}</div>
+            `;
+            grid.prepend(card);
+        }
+
+        function loadSavedTestimonials() {
+            let savedReviews = JSON.parse(localStorage.getItem('macnmood_reviews')) || [];
+            if (savedReviews.length > 0) {
+                savedReviews.forEach(review => {
+                    appendTestimonialToDOM(review);
+                });
+            }
+            checkEmptyTestimonials();
+        }
+
+        function checkEmptyTestimonials() {
+            const grid = document.getElementById('testimonialGrid');
+            const emptyMsg = document.getElementById('noTestimonialMsg');
+            if (grid.children.length === 0) {
+                emptyMsg.classList.remove('hidden');
+            } else {
+                emptyMsg.classList.add('hidden');
+            }
+        }
+
+        // ===== Lightbox Dokumentasi =====
+        (function () {
+            const items = Array.from(document.querySelectorAll('.doc-item'));
+            const box = document.getElementById('lightbox');
+            const media = document.getElementById('lbMedia');
+            const caption = document.getElementById('lbCaption');
+            const counter = document.getElementById('lbCounter');
+            let current = 0;
+            let lastFocus = null;
+
+            function render(i) {
+                current = (i + items.length) % items.length;
+                const fig = items[current];
+                const img = fig.querySelector('img');
+                const emoji = fig.querySelector('span').textContent;
+                media.innerHTML = '';
+
+                if (img) {
+                    const big = document.createElement('img');
+                    big.src = img.src;
+                    big.alt = img.alt;
+                    big.className = 'max-h-[75vh] max-w-full rounded-2xl border-4 border-brand-cream/60 shadow-2xl object-contain';
+                    media.appendChild(big);
+                } else {
+                    const ph = document.createElement('div');
+                    ph.className = 'w-64 h-64 sm:w-80 sm:h-80 rounded-2xl bg-brand-redDark border-4 border-brand-cream/60 flex items-center justify-center text-8xl';
+                    ph.textContent = emoji;
+                    media.appendChild(ph);
+                }
+                caption.textContent = fig.querySelector('figcaption').textContent;
+                counter.textContent = `${current + 1} / ${items.length}`;
+            }
+
+            function open(i) {
+                lastFocus = document.activeElement;
+                render(i);
+                box.classList.add('open');
+                document.body.classList.add('lb-lock');
+                document.getElementById('lbClose').focus();
+            }
+
+            function close() {
+                box.classList.remove('open');
+                document.body.classList.remove('lb-lock');
+                if (lastFocus) lastFocus.focus();
+            }
+
+            items.forEach((fig, i) => {
+                fig.addEventListener('click', () => open(i));
+                fig.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+                });
+            });
+
+            document.getElementById('lbClose').addEventListener('click', close);
+            document.getElementById('lbPrev').addEventListener('click', () => render(current - 1));
+            document.getElementById('lbNext').addEventListener('click', () => render(current + 1));
+
+            box.addEventListener('click', (e) => {
+                if (e.target === box) close();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!box.classList.contains('open')) return;
+                if (e.key === 'Escape') close();
+                else if (e.key === 'ArrowLeft') render(current - 1);
+                else if (e.key === 'ArrowRight') render(current + 1);
+            });
+
+            let startX = null;
+            box.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+            box.addEventListener('touchend', (e) => {
+                if (startX === null) return;
+                const dx = e.changedTouches[0].clientX - startX;
+                if (Math.abs(dx) > 50) render(current + (dx < 0 ? 1 : -1));
+                startX = null;
+            });
+        })();
+    </script>
+</body>
+</html>
